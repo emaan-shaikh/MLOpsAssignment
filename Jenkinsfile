@@ -9,21 +9,22 @@ pipeline {
         stage('Setup venv') {
             steps {
                 bat 'python -m venv venv'
-                bat 'venv\\Scripts\\pip install --upgrade pip'
-                bat 'venv\\Scripts\\pip install -r requirements.txt'
+                bat 'venv\\Scripts\\python -m pip install --upgrade pip'
+                bat 'venv\\Scripts\\python -m pip install -r requirements.txt'
             }
         }
         stage('Lint') {
             steps {
-                bat 'venv\\Scripts\\flake8 app.py tests'
+                bat 'venv\\Scripts\\python -m flake8 app.py tests/'
             }
         }
         stage('Test') {
             steps {
-                bat 'venv\\Scripts\\pytest -v'
+                bat 'venv\\Scripts\\python -m pytest -v'
             }
         }
     }
 }
+
 
 

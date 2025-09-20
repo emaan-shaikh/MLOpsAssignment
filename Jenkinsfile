@@ -20,5 +20,10 @@ pipeline {
         }
         stage('Test') {
             steps {
-                bat 'venv\\Scripts\\pytes
+                bat 'venv\\Scripts\\pytest -v'
+            }
+        }
+    }
+}
+
 

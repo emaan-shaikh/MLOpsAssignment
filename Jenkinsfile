@@ -6,20 +6,21 @@ pipeline {
                 checkout scm
             }
         }
-        stage('Install Dependencies') {
+        stage('Setup venv') {
             steps {
-                sh 'python -m venv venv'
-                sh '. venv/bin/activate && pip install -r requirements.txt'
+                bat 'python -m venv venv'
+                bat 'venv\\Scripts\\python -m pip install --upgrade pip'
+                bat 'venv\\Scripts\\python -m pip install -r requirements.txt'
             }
         }
         stage('Lint') {
             steps {
-                sh '. venv/bin/activate && flake8 app.py tests/'
+                bat 'venv\\Scripts\\python -m flake8 app.py tests/'
             }
         }
         stage('Test') {
             steps {
-                sh '. venv/bin/activate && pytest -v'
+                bat 'venv\\Scripts\\python -m pytest -v'
             }
         }
     }
